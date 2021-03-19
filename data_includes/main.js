@@ -208,4 +208,4 @@ newTrial("end",
     // Trick: stay on this trial forever (until tab is closed)
     newButton().wait()
 )
-;
+.setOption("countsForProgressBar",false);
