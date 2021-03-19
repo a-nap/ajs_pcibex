@@ -33,83 +33,6 @@ newTrial("ethics",
         .wait()
 )
 
-// Participant information
-newTrial("participants",
-    defaultText
-        .print()
-    ,
-    newText("<div class='fancy'><h2>1Zur Auswertung der Ergebnisse benötigen wir folgende Informationen.<br>Sie werden streng anonym behandelt.</h2></div>")
-    ,
-    newText("participantID", "<b>Bitte tragen Sie Ihre Teilnehmer-ID ein. (bitte Eintrag durch Eingabetaste bestätigen)</b>")
-    ,
-    newTextInput("input_ID")
-        .left()
-        .print()
-        .wait()
-    ,
-    newText("<p><b>Ist Deutsch Ihre Muttersprache?</b></p>")
-    ,
-    newScale("input_german",   "ja", "nein")
-        .radio()
-        .cssContainer({"width":"900px"})
-        .left()
-        .labelsPosition("right")
-        .print()
-        .wait()
-    ,
-    newText("<p><b>In welchem Bundesland wird Ihre Variante des Deutschen (bzw. Ihr Dialekt) hauptsächlich gesprochen?</b></p>")
-    ,
-    newDropDown("land", "(bitte auswählen)")
-        .add("Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfal", "Saarland", "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen", "nicht Deutschland, sondern Österreich", "nicht Deutschland, sondern Schweiz", "keines davon")
-        .cssContainer({"width":"900px"})
-        .left()
-        .print()
-        .wait()
-    ,
-    newText("<p><b>Haben Sie andere Muttersprachen? (bitte Eintrag durch Eingabetaste bestätigen)</b></p>")
-    ,
-    newTextInput("input_native")
-        .left()
-        .print()
-        .wait()
-    ,
-    newText("<p><b>Alter in Jahren (bitte Eintrag durch Eingabetaste bestätigen)</b></p>")
-    ,
-    newTextInput("input_age")
-        .left()
-        .length(2)
-        .print()
-        .wait()
-    ,
-    newText("<p><b>Geschlecht</b></p>")
-    ,
-    newScale("input_gender",   "weiblich", "männlich", "divers")
-        .radio()
-        .cssContainer({"width":"900px"})
-        .left()
-        .labelsPosition("right")
-        .print()
-        .wait()
-    ,
-    newText("<p><b>Händigkeit</b></p>")
-    ,
-    newScale("input_hand",   "rechts", "links", "beide")
-        .radio()
-        .cssContainer({"width":"900px"})
-        .left()
-        .labelsPosition("right")
-        .print()
-        .wait()
-    ,
-    newButton("weiter", "Weiter zur Instruktion")
-        .cssContainer({"padding-top":"1em"})
-        .print()
-        .wait()
-    ,
-    newVar("ID")
-        .global()
-        .set(getTextInput("input_ID"))
-)
 
 // Instructions
 newTrial("instructions",
@@ -119,9 +42,11 @@ newTrial("instructions",
         .print()
         ,
     newScale(7)
-        .before( newText("left", "(klingt sehr unnatürlich)") )
-        .after( newText("right", "(klingt sehr natürlich)") )
+        .before( newText("left", "(<em>klingt sehr unnatürlich</em>)") )
+        .after( newText("right", "(<em>klingt sehr natürlich</em>)") )
+        .labelsPosition("top")
         .keys()
+        .center()
         .print()
         .log()
         ,
@@ -142,9 +67,11 @@ Template("exercise.csv", row =>
             .print()
             ,
         newScale(7)
-            .before( newText("left", "(klingt sehr unnatürlich)") )
-            .after( newText("right", "(klingt sehr natürlich)") )
+            .before( newText("left", "(<em>klingt sehr unnatürlich</em>)") )
+            .after( newText("right", "(<em>klingt sehr natürlich</em>)") )
+            .labelsPosition("top")
             .keys()
+            .center()
             .print()
             .log()
     )
@@ -168,9 +95,11 @@ Template("experiment.csv", row =>
             .print()
             ,
         newScale(7)
-            .before( newText("left", "(klingt sehr unnatürlich)") )
-            .after( newText("right", "(klingt sehr natürlich)") )
+            .before( newText("left", "(<em>klingt sehr unnatürlich</em>)") )
+            .after( newText("right", "(<em>klingt sehr natürlich</em>)") )
+            .labelsPosition("top")
             .keys()
+            .center()
             .print()
             .log()
     )
