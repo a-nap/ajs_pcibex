@@ -154,6 +154,10 @@ Template("exercise.csv", row =>
             .print()
             .wait()
             .log()
+        ,
+        newTimer("wait", 200)
+            .start()
+            .wait()
     )
 )
 
@@ -185,6 +189,10 @@ Template("experiment.csv", row =>
             .print()
             .wait()
             .log()
+        ,
+        newTimer("wait", 200)
+            .start()
+            .wait()
     )
     .log("list", row.LIST)
     .log("item", row.ITEM)
