@@ -33,6 +33,83 @@ newTrial("ethics",
         .wait()
 )
 
+// Participant information
+newTrial("participants",
+    defaultText
+        .print()
+    ,
+    newText("<div class='fancy'><h2>Zur Auswertung der Ergebnisse benötigen wir folgende Informationen.<br>Sie werden streng anonym behandelt.</h2></div>")
+    ,
+    newText("participantID", "<b>Bitte tragen Sie Ihre Teilnehmer-ID ein. (bitte Eintrag durch Eingabetaste bestätigen)</b>")
+    ,
+    newTextInput("input_ID")
+        .left()
+        .print()
+        .wait()
+    ,
+    newText("<p><b>Ist Deutsch Ihre Muttersprache?</b></p>")
+    ,
+    newScale("input_german",   "ja", "nein")
+        .radio()
+        .cssContainer({"width":"900px"})
+        .left()
+        .labelsPosition("right")
+        .print()
+        .wait()
+    ,
+    newText("<p><b>In welchem Bundesland wird Ihre Variante des Deutschen (bzw. Ihr Dialekt) hauptsächlich gesprochen?</b></p>")
+    ,
+    newDropDown("land", "(bitte auswählen)")
+        .add("Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfal", "Saarland", "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen", "nicht Deutschland, sondern Österreich", "nicht Deutschland, sondern Schweiz", "keines davon")
+        .cssContainer({"width":"900px"})
+        .left()
+        .print()
+        .wait()
+    ,
+    newText("<p><b>Haben Sie andere Muttersprachen? (bitte Eintrag durch Eingabetaste bestätigen)</b></p>")
+    ,
+    newTextInput("input_native")
+        .left()
+        .print()
+        .wait()
+    ,
+    newText("<p><b>Alter in Jahren (bitte Eintrag durch Eingabetaste bestätigen)</b></p>")
+    ,
+    newTextInput("input_age")
+        .left()
+        .length(2)
+        .print()
+        .wait()
+    ,
+    newText("<p><b>Geschlecht</b></p>")
+    ,
+    newScale("input_gender",   "weiblich", "männlich", "divers")
+        .radio()
+        .cssContainer({"width":"900px"})
+        .left()
+        .labelsPosition("right")
+        .print()
+        .wait()
+    ,
+    newText("<p><b>Händigkeit</b></p>")
+    ,
+    newScale("input_hand",   "rechts", "links", "beide")
+        .radio()
+        .cssContainer({"width":"900px"})
+        .left()
+        .labelsPosition("right")
+        .print()
+        .wait()
+    ,
+    newButton("weiter", "Weiter zur Instruktion")
+        .cssContainer({"padding-top":"1em"})
+        .print()
+        .wait()
+    ,
+    newVar("ID")
+        .global()
+        .set(getTextInput("input_ID"))
+)
 
 // Instructions
 newTrial("instructions",
@@ -62,7 +139,9 @@ newTrial("instructions",
 // Exercise
 Template("exercise.csv", row =>
     newTrial( "exercise" ,
-        newText("sentence", {s : row.SENTENCE})
+        newText("sentence", row.SENTENCE)
+            .cssContainer({"margin-bottom":"2em"})
+            .color("LightCoral")
             .center()
             .print()
             ,
@@ -73,6 +152,7 @@ Template("exercise.csv", row =>
             .keys()
             .center()
             .print()
+            .wait()
             .log()
     )
 )
@@ -90,7 +170,9 @@ newTrial( "start_experiment" ,
 // Experimental trial
 Template("experiment.csv", row =>
     newTrial( "experiment",
-        newText("sentence", {s : row.SENTENCE})
+        newText("sentence", row.SENTENCE)
+            .cssContainer({"margin-bottom":"2em"})
+            .color("LightCoral")
             .center()
             .print()
             ,
@@ -101,6 +183,7 @@ Template("experiment.csv", row =>
             .keys()
             .center()
             .print()
+            .wait()
             .log()
     )
     .log("list", row.LIST)
@@ -117,4 +200,4 @@ newTrial("end",
     // Trick: stay on this trial forever (until tab is closed)
     newButton().wait()
 )
-.setOption("countsForProgressBar",false);
+;
