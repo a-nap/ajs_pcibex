@@ -4,12 +4,12 @@ PennController.ResetPrefix(null); // Shorten command names (keep this line here)
 // This is run at the beginning of each trial
 Header(
     // Declare a global Var element "ID" in which we will store the participant's ID
-    newVar("ID").global()
-    newVar("GERMAN").global()
-    newVar("LAND").global()
-    newVar("NATIVE").global()
-    newVar("AGE").global()
-    newVar("GENDER").global()
+    newVar("ID").global(),
+    newVar("GERMAN").global(),
+    newVar("LAND").global(),
+    newVar("NATIVE").global(),
+    newVar("AGE").global(),
+    newVar("GENDER").global(),
     newVar("HANDEDNESS").global()
 )
 
@@ -121,24 +121,30 @@ newTrial("participants",
     newVar("ID")
         .global()
         .set(getTextInput("input_ID"))
+        ,
     newVar("GERMAN")
         .global()
         .set(getTextInput("input_ID"))
+        ,
     newVar("LAND")
         .global()
-        .set(getTextInput("input_ID"))
+        .set(getTextInput("input_"))
+        ,
     newVar("NATIVE")
         .global()
-        .set(getTextInput("input_ID"))
+        .set(getTextInput("input_native"))
+        ,
     newVar("AGE")
         .global()
-        .set(getTextInput("input_ID"))
+        .set(getTextInput("input_age"))
+        ,
     newVar("GENDER")
         .global()
-        .set(getTextInput("input_ID"))
+        .set(getTextInput("input_gender"))
+        ,
     newVar("HANDEDNESS")
         .global()
-        .set(getTextInput("input_ID"))
+        .set(getScaleInput("input_hand"))
 )
 
 // Instructions
