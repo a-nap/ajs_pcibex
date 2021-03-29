@@ -131,18 +131,12 @@ newTrial("participants",
     // Store the texts from inputs into the Var elements
     getVar("ID").set( getTextInput("input_ID") ),
     getVar("GERMAN").set( getScale("input_german") ),
+    getVar("LAND").set( getDropDown("land") ),
     getVar("NATIVE").set(getTextInput("input_native") ),
-    getVar("AGE").set(getTextInput("input_age") )
+    getVar("AGE").set(getTextInput("input_age") ),
+    getVar("GENDER").set( getScale("input_gender") ),
+    getVar("HANDEDNESS").set( getScale("input_hand") )
 )       ,
-/*    
-    newVar("GERMAN").global(),
-    newVar("LAND").global(),
-    newVar("NATIVE").global(),
-    newVar("AGE").global(),
-    newVar("GENDER").global(),
-    newVar("HANDEDNESS").global()
-*/
-
 
 // Instructions
 newTrial("instructions",
@@ -177,8 +171,8 @@ Template("exercise.csv", row =>
             .print()
             ,
         newScale(7)
-            .before( newText("left", "(<div class='fancy'><em>klingt sehr unnatürlich</em></div>)") )
-            .after( newText("right", "(<div class='fancy'><em>klingt sehr natürlich</em></div>)") )
+            .before( newText("left", "<div class='fancy'>(<em>klingt sehr unnatürlich</em>)</div>") )
+            .after( newText("right", "<div class='fancy'>(<em>klingt sehr natürlich</em>)</div>") )
             .labelsPosition("top")
             .keys()
             .log()
@@ -213,11 +207,11 @@ Template("experiment.csv", row =>
             .print()
             ,
         newScale(7)
-            .before( newText("left", "(<div class='fancy'><em>klingt sehr unnatürlich</em></div>)") )
-            .after( newText("right", "(<div class='fancy'><em>klingt sehr natürlich</em></div>)") )
+            .before( newText("left", "<div class='fancy'>(<em>klingt sehr unnatürlich</em>)</div>") )
+            .after( newText("right", "<div class='fancy'>(<em>klingt sehr natürlich</em>)</div>") )
             .labelsPosition("top")
-            .log()
             .keys()
+            .log()
             .once()
             .center()
             .print()
