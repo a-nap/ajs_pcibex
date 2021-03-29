@@ -8,8 +8,7 @@ Header(
 )
 
 // First show instructions, then experiment trials, send results and show end screen
-Sequence("ethics", "participants", "instructions", "exercise", "start_experiment", randomize("experiment"), "end")
-//Sequence("start_experiment", "experiment", "end")
+Sequence("ethics", "participants", "instructions", "exercise", "start_experiment", randomize("experiment"), SendResults(), "end")
 
 // Ethics agreement
 newTrial("ethics",
@@ -194,9 +193,12 @@ Template("experiment.csv", row =>
             .start()
             .wait()
     )
-    .log("list", row.LIST)
-    .log("item", row.ITEM)
-    .log("condition", row.CONDITION)
+    .log("LIST", row.LIST)
+    .log("ITEM", row.ITEM)
+    .log("CONDITION", row.CONDITION)
+    .log("ADJECTIVE", row.ADJECTIVE)
+    .log("ADVERB", row.ADVERB)
+
 )
 
 // Final screen
