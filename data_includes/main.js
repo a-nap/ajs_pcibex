@@ -5,6 +5,12 @@ PennController.ResetPrefix(null); // Shorten command names (keep this line here)
 Header(
     // Declare a global Var element "ID" in which we will store the participant's ID
     newVar("ID").global()
+    newVar("GERMAN").global()
+    newVar("LAND").global()
+    newVar("NATIVE").global()
+    newVar("AGE").global()
+    newVar("GENDER").global()
+    newVar("HANDEDNESS").global()
 )
 
 // First show instructions, then experiment trials, send results and show end screen
@@ -43,6 +49,7 @@ newTrial("participants",
     ,
     newTextInput("input_ID")
         .left()
+        .log()
         .print()
         .wait()
     ,
@@ -53,6 +60,7 @@ newTrial("participants",
         .cssContainer({"width":"900px"})
         .left()
         .labelsPosition("right")
+        .log()
         .print()
         .wait()
     ,
@@ -62,6 +70,7 @@ newTrial("participants",
         .add("Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfal", "Saarland", "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen", "nicht Deutschland, sondern Österreich", "nicht Deutschland, sondern Schweiz", "keines davon")
         .cssContainer({"width":"900px"})
         .left()
+        .log()
         .print()
         .wait()
     ,
@@ -69,6 +78,7 @@ newTrial("participants",
     ,
     newTextInput("input_native")
         .left()
+        .log()
         .print()
         .wait()
     ,
@@ -77,6 +87,7 @@ newTrial("participants",
     newTextInput("input_age")
         .left()
         .length(2)
+        .log()
         .print()
         .wait()
     ,
@@ -87,6 +98,7 @@ newTrial("participants",
         .cssContainer({"width":"900px"})
         .left()
         .labelsPosition("right")
+        .log()
         .print()
         .wait()
     ,
@@ -97,6 +109,7 @@ newTrial("participants",
         .cssContainer({"width":"900px"})
         .left()
         .labelsPosition("right")
+        .log()
         .print()
         .wait()
     ,
@@ -106,6 +119,24 @@ newTrial("participants",
         .wait()
     ,
     newVar("ID")
+        .global()
+        .set(getTextInput("input_ID"))
+    newVar("GERMAN")
+        .global()
+        .set(getTextInput("input_ID"))
+    newVar("LAND")
+        .global()
+        .set(getTextInput("input_ID"))
+    newVar("NATIVE")
+        .global()
+        .set(getTextInput("input_ID"))
+    newVar("AGE")
+        .global()
+        .set(getTextInput("input_ID"))
+    newVar("GENDER")
+        .global()
+        .set(getTextInput("input_ID"))
+    newVar("HANDEDNESS")
         .global()
         .set(getTextInput("input_ID"))
 )
@@ -150,9 +181,9 @@ Template("exercise.csv", row =>
             .labelsPosition("top")
             .keys()
             .center()
+            .log()
             .print()
             .wait()
-            .log()
         ,
         newTimer("wait", 200)
             .start()
@@ -185,9 +216,9 @@ Template("experiment.csv", row =>
             .labelsPosition("top")
             .keys()
             .center()
+            .log()
             .print()
             .wait()
-            .log()
         ,
         newTimer("wait", 200)
             .start()
@@ -198,7 +229,6 @@ Template("experiment.csv", row =>
     .log("CONDITION", row.CONDITION)
     .log("ADJECTIVE", row.ADJECTIVE)
     .log("ADVERB", row.ADVERB)
-
 )
 
 // Final screen
