@@ -2,16 +2,25 @@ PennController.ResetPrefix(null); // Shorten command names (keep this line here)
 
 // DebugOff()   // Uncomment this line only when you are 100% done designing your experiment
 // This is run at the beginning of each trial
+
 Header(
     // Declare a global Var element "ID" in which we will store the participant's ID
-    newVar("ID").global()/*,
+    newVar("ID").global(),
     newVar("GERMAN").global(),
     newVar("LAND").global(),
     newVar("NATIVE").global(),
     newVar("AGE").global(),
     newVar("GENDER").global(),
-    newVar("HANDEDNESS").global()*/
+    newVar("HANDEDNESS").global()
 )
+ // Add the particimant info to all trials' results lines
+.log( "id" , getVar("ID") )
+.log( "german" , getVar("GERMAN") )
+.log( "land" , getVar("LAND") )
+.log( "native" , getVar("NATIVE") )
+.log( "age" , getVar("AGE") )
+.log( "gender" , getVar("GENDER") )
+.log( "handedness" , getVar("HANDEDNESS") )
 
 // First show instructions, then experiment trials, send results and show end screen
 Sequence("ethics", "participants", "instructions", "exercise", "start_experiment", randomize("experiment"), SendResults(), "end")
@@ -116,36 +125,24 @@ newTrial("participants",
     newButton("weiter", "Weiter zur Instruktion")
         .cssContainer({"padding-top":"1em"})
         .print()
-        .wait()
+        // Only validate a click on Start when inputID has been filled
+        .wait( getTextInput("input_ID").testNot.text("") )
     ,
-    newVar("ID")
-        .global()
-        .set(getTextInput("input_ID"))
-        ,
-/*    newVar("GERMAN")
-        .global()
-        .set(getTextInput("input_ID"))
-        ,
-    newVar("LAND")
-        .global()
-        .set(getTextInput("input_"))
-        ,*/
-    newVar("NATIVE")
-        .global()
-        .set(getTextInput("input_native"))
-        ,
-    newVar("AGE")
-        .global()
-        .set(getTextInput("input_age"))
-/*        ,
-    newVar("GENDER")
-        .global()
-        .set(getTextInput("input_gender"))
-        ,
-    newVar("HANDEDNESS")
-        .global()
-        .set(getScaleInput("input_hand"))*/
-)
+    // Store the texts from inputs into the Var elements
+    getVar("ID").set( getTextInput("input_ID") ),
+    getVar("GERMAN").set( getScale("input_german") ),
+    getVar("NATIVE").set(getTextInput("input_native") ),
+    getVar("AGE").set(getTextInput("input_age") )
+)       ,
+/*    
+    newVar("GERMAN").global(),
+    newVar("LAND").global(),
+    newVar("NATIVE").global(),
+    newVar("AGE").global(),
+    newVar("GENDER").global(),
+    newVar("HANDEDNESS").global()
+*/
+
 
 // Instructions
 newTrial("instructions",
@@ -161,7 +158,6 @@ newTrial("instructions",
         .keys()
         .center()
         .print()
-        .log()
         ,
     newHtml("instructions_text", "instructions.html")
         .print()
@@ -177,16 +173,16 @@ Template("exercise.csv", row =>
     newTrial( "exercise" ,
         newText("sentence", row.SENTENCE)
             .cssContainer({"margin-bottom":"2em"})
-            .color("white")
             .center()
             .print()
             ,
         newScale(7)
-            .before( newText("left", "(<em>klingt sehr unnatürlich</em>)") )
-            .after( newText("right", "(<em>klingt sehr natürlich</em>)") )
+            .before( newText("left", "(<div class='fancy'><em>klingt sehr unnatürlich</em></div>)") )
+            .after( newText("right", "(<div class='fancy'><em>klingt sehr natürlich</em></div>)") )
             .labelsPosition("top")
-            .log()
             .keys()
+            .log()
+            .once()
             .color("LightCoral")
             .center()
             .print()
@@ -213,16 +209,16 @@ Template("experiment.csv", row =>
     newTrial( "experiment",
         newText("sentence", row.SENTENCE)
             .cssContainer({"margin-bottom":"2em"})
-            .color("LightCoral")
             .center()
             .print()
             ,
         newScale(7)
-            .before( newText("left", "(<em>klingt sehr unnatürlich</em>)") )
-            .after( newText("right", "(<em>klingt sehr natürlich</em>)") )
+            .before( newText("left", "(<div class='fancy'><em>klingt sehr unnatürlich</em></div>)") )
+            .after( newText("right", "(<div class='fancy'><em>klingt sehr natürlich</em></div>)") )
             .labelsPosition("top")
             .log()
             .keys()
+            .once()
             .center()
             .print()
             .wait()
