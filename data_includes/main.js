@@ -52,14 +52,14 @@ newTrial("participants",
         .cssContainer({"margin-top":"1em", "margin-bottom":"1em"})
         .print()
     ,
-    newText("<div class='fancy'><h2>Zur Auswertung der Ergebnisse benötigen wir folgende Informationen.<br>Sie werden streng anonym behandelt.</h2></div>")
+    newText("participant_info_header", "<div class='fancy'><h2>Zur Auswertung der Ergebnisse benötigen wir folgende Informationen.<br>Sie werden streng anonym behandelt und eine spätere Zuordnung zu Ihnen wird nicht möglich sein.</h2></div>")
     ,
-    // Participant ID
+    // Participant ID (6-place)
     newText("participantID", "<b>Bitte tragen Sie Ihre Teilnehmer-ID ein. (bitte Eintrag durch Eingabetaste bestätigen)</b>")
     ,
     newTextInput("input_ID")
+        .length(6)
         .log()
-        .left()
         .cssContainer({"width":"900px"})
         .print()
         .wait()
@@ -71,7 +71,6 @@ newTrial("participants",
         .radio()
         .log()
         .labelsPosition("right")
-        .left()
         .cssContainer({"width":"900px"})
         .print()
         .wait()
@@ -82,7 +81,6 @@ newTrial("participants",
     newDropDown("land", "(bitte auswählen)")
         .add("Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfal", "Saarland", "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen", "nicht Deutschland, sondern Österreich", "nicht Deutschland, sondern Schweiz", "keines davon")
         .log()
-        .left()
         .cssContainer({"width":"900px"})
         .print()
         .wait()
@@ -92,7 +90,6 @@ newTrial("participants",
     ,
     newTextInput("input_native")
         .log()
-        .left()
         .cssContainer({"width":"900px"})
         .print()
         .wait()
@@ -103,7 +100,6 @@ newTrial("participants",
     newTextInput("input_age")
         .length(2)
         .log()
-        .left()
         .cssContainer({"width":"900px"})
         .print()
         .wait()
@@ -114,7 +110,6 @@ newTrial("participants",
     newScale("input_gender",   "weiblich", "männlich", "divers")
         .radio()
         .log()
-        .left()
         .labelsPosition("right")
         .cssContainer({"width":"900px"})
         .print()
@@ -126,17 +121,33 @@ newTrial("participants",
     newScale("input_hand",   "rechts", "links", "beide")
         .radio()
         .log()
-        .left()
         .labelsPosition("right")
         .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
-    // Continue. Only validate a click when ID and age information
+    // Clear error messages if the participant changes the input
+    newKey("just for callback", "") 
+        .callback( getText("errorage").remove() , getText("errorID").remove() )
+    ,
+    // Formatting text for error messages
+    defaultText.color("Crimson").print()
+    ,
+    // Continue. Only validate a click when ID and age information is input properly
     newButton("weiter", "Weiter zur Instruktion")
         .cssContainer({"margin-top":"1em", "margin-bottom":"1em"})
         .print()
-        .wait( getTextInput("input_ID").testNot.text(""), getTextInput("input_age").testNot.text("")  )
+        // Check for participant ID and age input
+        .wait(
+             newFunction('dummy', ()=>true).test.is(true)
+            // ID
+            .and( getTextInput("input_ID").testNot.text("")
+                .failure( newText('errorID', "Bitte tragen Sie Ihre Teilnehmer-ID ein. Diese haben Sie in einer E-Mail bekommen.") )
+            // Age
+            ).and( getTextInput("input_age").test.text(/^\d+$/)
+                .failure( newText('errorage', "Bitte tragen Sie Ihr Alter ein."), 
+                          getTextInput("input_age").text("")))  
+        )
     ,
     // Store the texts from inputs into the Var elements
     getVar("ID")     .set( getTextInput("input_ID") ),
@@ -166,7 +177,7 @@ newTrial("instructions",
         .print()
         ,
     newHtml("instructions_text", "instructions.html")
-        .cssContainer({"width":"900px"})
+        .cssContainer({"width":"900px", "margin":"1em"})
         .print()
         ,
     newButton("go_to_exercise", "Übung starten")
