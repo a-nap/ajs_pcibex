@@ -1,6 +1,7 @@
 PennController.ResetPrefix(null); // Shorten command names (keep this line here))
 
 // DebugOff()   // Uncomment this line only when you are 100% done designing your experiment
+const voucher = b64_md5((Date.now() + Math.random()).toString())
 // This is run at the beginning of each trial
 Header(
     // Declare global variables to store the participant's ID and demographic information
@@ -20,6 +21,7 @@ Header(
 .log( "age"    , getVar("AGE") )
 .log( "gender" , getVar("GENDER") )
 .log( "hand"   , getVar("HAND") )
+.log( "code"   , voucher )
 
 // Sequence of events: consent to ethics statement required to start the experiment, participant information, instructions, exercise, transition screen, main experiment, result logging, and end screen.
 Sequence("ethics", "participants", "instructions", "exercise", "start_experiment", rshuffle("experiment-filler", "experiment-item"), SendResults(), "end")
@@ -257,6 +259,10 @@ Template("experiment.csv", row =>
 
 // Final screen: explanation of the goal
 newTrial("end",
+    newText("<div class='fancy'><h2>Vielen Dank für die Teilnahme an unserer Studie!</h2></div><p>Um Ihre Vergütung zu bekommen, schicken Sie bitte diesen Code, der für Sie generiert wurde, an die Versuchsleiterin: <div class='fancy'><em>".concat(voucher, "</em></div></p>"))
+        .cssContainer({"width":"900px", "margin-top":"1em", "margin-bottom":"1em"})
+        .print()
+    ,
     newHtml("explain", "end.html")
         .cssContainer({"width":"900px"})
         .print()
