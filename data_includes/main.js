@@ -80,7 +80,6 @@ newTrial("participants",
         .radio()
         .log()
         .labelsPosition("right")
-        .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
@@ -90,7 +89,6 @@ newTrial("participants",
     newDropDown("land", "(bitte auswählen)")
         .add("Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfal", "Saarland", "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen", "nicht Deutschland, sondern Österreich", "nicht Deutschland, sondern Schweiz", "keines davon")
         .log()
-        .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
@@ -99,7 +97,6 @@ newTrial("participants",
     ,
     newTextInput("input_native")
         .log()
-        .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
@@ -109,7 +106,6 @@ newTrial("participants",
     newTextInput("input_age")
         .length(2)
         .log()
-        .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
@@ -120,7 +116,6 @@ newTrial("participants",
         .radio()
         .log()
         .labelsPosition("right")
-        .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
@@ -131,7 +126,6 @@ newTrial("participants",
         .radio()
         .log()
         .labelsPosition("right")
-        .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
@@ -190,7 +184,7 @@ newTrial("instructions",
         .print()
         ,
     newButton("go_to_exercise", "Übung starten")
-        .cssContainer({"width":"900px", "margin":"1em"})
+        .cssContainer({"margin":"1em"})
         .print()
         .wait()
 )
