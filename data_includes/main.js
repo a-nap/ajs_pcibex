@@ -1,8 +1,9 @@
 PennController.ResetPrefix(null); // Shorten command names (keep this line here))
 
-// DebugOff()   // Uncomment this line only when you are 100% done designing your experiment
-const voucher = b64_md5((Date.now() + Math.random()).toString())
-// This is run at the beginning of each trial
+DebugOff()   // Debugger is closed
+
+const voucher = b64_md5((Date.now() + Math.random()).toString()) // Voucher code generator
+
 Header(
     // Declare global variables to store the participant's ID and demographic information
     newVar("ID").global(),
@@ -26,14 +27,14 @@ Header(
 // Sequence of events: consent to ethics statement required to start the experiment, participant information, instructions, exercise, transition screen, main experiment, result logging, and end screen.
 Sequence("ethics", "participants", "instructions", "exercise", "start_experiment", rshuffle("experiment-filler", "experiment-item"), SendResults(), "end")
 
-// Ethics agreement: participants must agree befor continuing
+// Ethics agreement: participants must agree before continuing
 newTrial("ethics",
     newHtml("ethics_explanation", "ethics.html")
-        .cssContainer({"width":"900px", "margin":"1em"}) // FIXME there must be a way to set these globally
+        .cssContainer({"margin":"1em"})
         .print()
     ,
     newHtml("form", `<div class='fancy'><input name='consent' id='consent' type='checkbox'><label for='consent'>Ich bin mindestens 18 Jahre alt und erkläre mich damit einverstanden, an der Studie teilzunehmen. Ich habe die <em>Information für Probanden</em> gelesen und verstanden. Meine Teilnahme ist freiwillig. Ich weiß, dass ich die Möglichkeit habe, meine Teilnahme an dieser Studie jederzeit und ohne Angabe von Gründen abzubrechen, ohne dass mir daraus Nachteile entstehen. Ich erkläre, dass ich mir der im Rahmen der Studie erfolgten Auszeichnung von Studiendaten und ihrer Verwendung in pseudo- bzw. anonymisierter Form einverstanden bin.</label></div>`)
-        .cssContainer({"width":"900px", "margin":"1em"})
+        .cssContainer({"margin":"1em"})
         .print()
     ,
     newFunction( () => $("#consent").change( e=>{
@@ -48,7 +49,7 @@ newTrial("ethics",
         .wait()
 )
 
-// Participant information
+// Participant information: questions appear as soon as information is input
 newTrial("participants",
     defaultText
         .cssContainer({"margin-top":"1em", "margin-bottom":"1em"})
@@ -62,7 +63,6 @@ newTrial("participants",
     newTextInput("input_ID")
         .length(6)
         .log()
-        .cssContainer({"width":"900px"})
         .print()
         .wait()
     ,
@@ -165,7 +165,7 @@ newTrial("participants",
 newTrial("instructions",
     newText("instructions_greeting", "<h2>Willkommen zum Experiment!</h2><p>Ihre Aufgabe in dieser Studie ist es, Sätze zu lesen und sie nach ihrer Natürlichkeit zu bewerten. Die Sätze sind unabhängig voneinander. Bitte lesen Sie schnell, aber so, dass Sie den Inhalt der Sätze verstehen können. Verlassen Sie sich bei der Bewertung der Natürlichkeit einfach auf Ihre Intuition. Zur Bewertung der Sätze nutzen Sie die folgende Skala:</p>")
         .left()
-        .cssContainer({"width":"900px", "margin":"1em"})
+        .cssContainer({"margin":"1em"})
         .print()
         ,
     newScale(7)
@@ -179,7 +179,7 @@ newTrial("instructions",
         .print()
         ,
     newHtml("instructions_text", "instructions.html")
-        .cssContainer({"width":"900px", "margin":"1em"})
+        .cssContainer({"margin":"1em"})
         .print()
         ,
     newButton("go_to_exercise", "Übung starten")
@@ -261,11 +261,10 @@ Template("experiment.csv", row =>
 // Final screen: explanation of the goal
 newTrial("end",
     newText("<div class='fancy'><h2>Vielen Dank für die Teilnahme an unserer Studie!</h2></div><p>Um Ihre Vergütung zu bekommen, schicken Sie bitte diesen persönlichen Code an die Versuchsleiterin: <div class='fancy'><em>".concat(voucher, "</em></div></p>"))
-        .cssContainer({"width":"900px", "margin-top":"1em", "margin-bottom":"1em"})
+        .cssContainer({"margin-top":"1em", "margin-bottom":"1em"})
         .print()
     ,
     newHtml("explain", "end.html")
-        .cssContainer({"width":"900px"})
         .print()
     ,
     // Trick: stay on this trial forever (until tab is closed)
