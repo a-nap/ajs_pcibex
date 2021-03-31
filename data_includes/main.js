@@ -54,10 +54,10 @@ newTrial("participants",
         .cssContainer({"margin-top":"1em", "margin-bottom":"1em"})
         .print()
     ,
-    newText("participant_info_header", "<div class='fancy'><h2>Zur Auswertung der Ergebnisse benötigen wir folgende Informationen.<br>Sie werden streng anonym behandelt und eine spätere Zuordnung zu Ihnen wird nicht möglich sein.</h2></div>")
+    newText("participant_info_header", "<div class='fancy'><h2>Zur Auswertung der Ergebnisse benötigen wir folgende Informationen.</h2><p>Sie werden streng anonym behandelt und eine spätere Zuordnung zu Ihnen wird nicht möglich sein.</p></div>")
     ,
     // Participant ID (6-place)
-    newText("participantID", "<b>Bitte tragen Sie Ihre Teilnehmer-ID ein. (bitte Eintrag durch Eingabetaste bestätigen)</b>")
+    newText("participantID", "<b>Bitte tragen Sie Ihre Teilnehmer-ID ein.</b><br>(bitte Eintrag durch Eingabetaste bestätigen)")
     ,
     newTextInput("input_ID")
         .length(6)
@@ -88,7 +88,7 @@ newTrial("participants",
         .wait()
     ,
     // Other native languages
-    newText("<b>Haben Sie andere Muttersprachen? (bitte Eintrag durch Eingabetaste bestätigen)</b>")
+    newText("<b>Haben Sie andere Muttersprachen?</b><br>(bitte Eintrag durch Eingabetaste bestätigen)")
     ,
     newTextInput("input_native")
         .log()
@@ -97,7 +97,7 @@ newTrial("participants",
         .wait()
     ,
     // Age
-    newText("<b>Alter in Jahren (bitte Eintrag durch Eingabetaste bestätigen)</b>")
+    newText("<b>Alter in Jahren</b><br>(bitte Eintrag durch Eingabetaste bestätigen)")
     ,
     newTextInput("input_age")
         .length(2)
@@ -192,7 +192,7 @@ newTrial("instructions",
 Template("exercise.csv", row =>
     newTrial( "exercise" ,
         newText("sentence", row.SENTENCE)
-            .cssContainer({"margin":"2em"})
+            .cssContainer({"margin-top":"2em", "margin-bottom":"2em"})
             .center()
             .print()
             ,
@@ -209,7 +209,7 @@ Template("exercise.csv", row =>
             .wait()
         ,
         // Wait briefly to display which option was selected
-        newTimer("wait", 200)
+        newTimer("wait", 300)
             .start()
             .wait()
     )
@@ -245,21 +245,22 @@ Template("experiment.csv", row =>
             .print()
             .wait()
         ,
-        newTimer("wait", 200)
+        // Wait briefly to display which option was selected
+        newTimer("wait", 300)
             .start()
             .wait()
     )
     // Record trial data
-    .log("LIST",      row.LIST)
-    .log("ITEM",      row.ITEM)
+    .log("LIST"     , row.LIST)
+    .log("ITEM"     , row.ITEM)
     .log("CONDITION", row.CONDITION)
     .log("ADJECTIVE", row.ADJECTIVE)
-    .log("ADVERB",    row.ADVERB)
+    .log("ADVERB"   , row.ADVERB)
 )
 
 // Final screen: explanation of the goal
 newTrial("end",
-    newText("<div class='fancy'><h2>Vielen Dank für die Teilnahme an unserer Studie!</h2></div><p>Um Ihre Vergütung zu bekommen, schicken Sie bitte diesen Code, der für Sie generiert wurde, an die Versuchsleiterin: <div class='fancy'><em>".concat(voucher, "</em></div></p>"))
+    newText("<div class='fancy'><h2>Vielen Dank für die Teilnahme an unserer Studie!</h2></div><p>Um Ihre Vergütung zu bekommen, schicken Sie bitte diesen persönlichen Code an die Versuchsleiterin: <div class='fancy'><em>".concat(voucher, "</em></div></p>"))
         .cssContainer({"width":"900px", "margin-top":"1em", "margin-bottom":"1em"})
         .print()
     ,
