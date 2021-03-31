@@ -25,7 +25,7 @@ Header(
 .log( "code"   , voucher )
 
 // Sequence of events: consent to ethics statement required to start the experiment, participant information, instructions, exercise, transition screen, main experiment, result logging, and end screen.
-Sequence("ethics", "participants", "instructions", "exercise", "start_experiment", rshuffle("experiment-filler", "experiment-item"), SendResults(), "end")
+Sequence("ethics", "setcounter", "participants", "instructions", "exercise", "start_experiment", rshuffle("experiment-filler", "experiment-item"), SendResults(), "end")
 
 // Ethics agreement: participants must agree before continuing
 newTrial("ethics",
@@ -48,6 +48,13 @@ newTrial("ethics",
         .print()
         .wait()
 )
+
+// Start the next list as soon as the participant agrees to the ethics statement
+// This is different from PCIbex's normal behavior, which is to move to the next list once 
+// the experiment is completed. In my experiment, multiple participants are likely to start 
+// the experiment at the same time, leading to a disproportionate assignment of participants
+// to lists.
+SetCounter("setcounter")
 
 // Participant information: questions appear as soon as information is input
 newTrial("participants",
