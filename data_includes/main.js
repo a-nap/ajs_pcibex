@@ -25,7 +25,7 @@ Header(
 .log( "code"   , voucher )
 
 // Sequence of events: consent to ethics statement required to start the experiment, participant information, instructions, exercise, transition screen, main experiment, result logging, and end screen.
-Sequence("ethics", "setcounter", "participants", "instructions", ramdomize("exercise"), "start_experiment", rshuffle("experiment-filler", "experiment-item"), SendResults(), "end")
+Sequence("ethics", "setcounter", "participants", "instructions", randomize("exercise"), "start_experiment", rshuffle("experiment-filler", "experiment-item"), SendResults(), "end")
 
 // Ethics agreement: participants must agree before continuing
 newTrial("ethics",
@@ -169,6 +169,7 @@ newTrial("instructions",
         .cssContainer({"margin":"1em"})
         .print()
         ,
+    // 7-point scale
     newScale(7)
         .before( newText("left", "<div class='fancy'>(<em>klingt sehr unnatürlich</em>)</div>") )
         .after( newText("right", "<div class='fancy'>(<em>klingt sehr natürlich</em>)</div>") )
@@ -234,6 +235,7 @@ Template("experiment.csv", row =>
             .center()
             .print()
             ,
+    // 7-point scale
         newScale(7)
             .before( newText("left", "<div class='fancy'>(<em>klingt sehr unnatürlich</em>)</div>") )
             .after( newText("right", "<div class='fancy'>(<em>klingt sehr natürlich</em>)</div>") )
