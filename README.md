@@ -1,12 +1,12 @@
 # Acceptability Judgment Task for PCIbex
 
-This is an experiment template which allows the experimenter to gather 
+This is an experiment template which allows the experimenter to collect 
 naturalness ratings to sentence stimuli. The experiment consists of the 
 following parts:
 
 1. Obligatory ethics agreement
 2. Form for inputting general demographic participant information (ID, native
-languagess, federal state, age, gender, handedness)
+languages, federal state, age, gender, handedness)
 3. Instructions
 4. Exercise
 5. Continue to experiment display
