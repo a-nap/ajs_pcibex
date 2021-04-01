@@ -13,8 +13,8 @@ languages, federal state, age, gender, handedness)
 6. Main experiment sequence
 7. End screen and experiment explanation
 
-The experiment is in German but the the comments and the majority of the code is
-in English.
+The experiment is in German but the comments and the majority of the code is in 
+English.
 
 ## Task description
 
