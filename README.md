@@ -29,7 +29,7 @@ counter switches to the next list/group. This is because in my experiments,
 multiple participants can start the experiment simultaneously. By default, PCIbex
 switches to the next list once the participant has finished the experiment.
 
-At the end of the experiment, the a random code is generated that the 
+At the end of the experiment, a random code is generated that the 
 participants should email to the principal researcher in order to receive 
 compensation.
 
