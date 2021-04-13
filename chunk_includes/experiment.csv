@@ -1,4 +1,4 @@
-ITEM,CONDITION,ADJECTIVE,ADVERB,SENTENCE,LIST,TYPE
+ITEM,CONDITION,ADVERB,ADJECTIVE,SENTENCE,LIST,TYPE
 345,3,"freiwillig","zufrieden","Niklas war freiwillig zufrieden.",1,"item"
 347,2,"bewusst","zutraulich","Adam war bewusst zutraulich.",1,"item"
 348,1,"absichtlich","zuverlässig","Theresa war absichtlich zuverlässig.",1,"item"
